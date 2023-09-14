@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('estado');
             $table->string('nombre');
             $table->longText('descripcion');
-            $table->binary('icono');
+            $table->binary('icono')->nullable();
             $table->string('tipo');
             $table->timestamps();
 

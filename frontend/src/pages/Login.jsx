@@ -1,4 +1,4 @@
-import Icon from './components/Icon'
+import Icon from '../components/Icon'
 
 function App() {
 
@@ -15,16 +15,16 @@ function App() {
             Login
           </h3>
 
-          <form className="h-1/3 flex flex-col justify-evenly sm:h-2/4" action="pages/profile.jsx" method="post">
+          <form className="h-1/3 flex flex-col justify-evenly sm:h-2/4" action="http://127.0.0.1:8000/api/login" method="post">
 
             <div className="flex h-12 border-solid border-2 border-[#BDBDBD] rounded-lg">
               <img src="/mail.svg" alt="mail" className="p-2" />
-              <input type="email" name="email" id="email" placeholder="Email" className="w-11/12 bg-transparent font-sans text-base text-[#828282] focus:outline-none" />
+              <input type="text" name="usuario" id="usuario" placeholder="Usuario" className="w-11/12 bg-transparent font-sans text-base text-[#828282] focus:outline-none" required />
             </div>
 
             <div className="flex h-12 border-solid border-2 border-[#BDBDBD] rounded-lg">
               <img src="/lock.svg" alt="lock" className="p-2"/>
-                <input type="password" name="passw" id="password" placeholder="Password" className=" w-11/12 bg-transparent font-sans text-base text-[#828282] focus:outline-none"/>
+                <input type="password" name="clave" id="clave" placeholder="Password" className=" w-11/12 bg-transparent font-sans text-base text-[#828282] focus:outline-none" required/>
             </div>
 
             <button className="h-9 bg-[#2F80ED] rounded-lg font-sans font-semibold text-base text-white" type="submit">

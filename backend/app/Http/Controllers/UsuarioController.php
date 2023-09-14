@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Models\Persona;
 use Illuminate\Http\Request;
+use App\Models\Bitacora;
 
 class UsuarioController extends Controller
 {
@@ -57,6 +58,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::find($id);
         $usuario->persona;
+        $usuario->rol;
 
         return $usuario;
     }
@@ -78,7 +80,8 @@ class UsuarioController extends Controller
             $persona->usuario_modificacion = $request->usuario_modificacion;
             $persona->save();
 
-            $usuario = Usuario::where('persona_id', $id)->get();
+            $usuarioBuscado = Usuario::where('persona_id', $id)->get();
+            $usuario = Usuario::find($usuarioBuscado[0]->id);
 
             $usuario->usuario = $request->usuario;
             $usuario->clave = $request->clave;
@@ -88,7 +91,7 @@ class UsuarioController extends Controller
             $usuario->usuario_modificacion = $request->usuario_modificacion;
             $usuario->save();
 
-            return "persona actualizada";
+            return redirect("http://localhost:5173/profile/" . $id);
         } else {
             return response()->json([
                 'message' => "No se encontro la persona $id"
@@ -111,6 +114,38 @@ class UsuarioController extends Controller
             return response()->json([
                 'message' => "No se encontro el usuario $id"
             ], 200);
+        }
+    }
+
+    public function login(Request $request)
+    {
+
+        $usuario = Usuario::where('usuario', $request->usuario)->where('clave', $request->clave)->where('habilitado', 1)->get();
+
+        if (count($usuario) === 1) {
+
+            $id = $usuario[0]->id;
+
+            // $nuevaBitacora = new Bitacora();
+
+            // $nuevaBitacora->bitacora = "Inicio de sesión";
+            // $nuevaBitacora->id_usuario = $id;
+            // $nuevaBitacora->fecha = date("Y-m-d");
+            // $nuevaBitacora->hora = now();
+            // if (empty($_SERVER['REMOTE_ADDR'])) {
+            //     $nuevaBitacora->ip = "Desconocida";
+            // } else {
+            //     $nuevaBitacora->ip = $_SERVER['REMOTE_ADDR'];
+            // }
+            // $nuevaBitacora->so = PHP_OS;
+            // $nuevaBitacora->navegador = $_SERVER['HTTP_USER_AGENT'];
+            // $nuevaBitacora->usuario_nombre = $usuario;
+            // $nuevaBitacora->habilitado = 1;
+            // $nuevaBitacora->save();
+
+            return redirect("http://localhost:5173/dashboard/" . $id);
+        } else {
+            return redirect("http://localhost:5173/");
         }
     }
 }

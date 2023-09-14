@@ -22,8 +22,8 @@ class Usuario extends Model
         return $this->belongsTo(Persona::class);
     }
 
-    public function rol(): HasOne
+    public function rol(): BelongsTo
     {
-        return $this->hasOne(Rol::class);
+        return $this->belongsTo(Rol::class);
     }
 }
